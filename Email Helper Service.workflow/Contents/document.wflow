@@ -21,6 +21,111 @@
 					<true/>
 					<key>Types</key>
 					<array>
+						<string>com.apple.mail.message-object</string>
+						<string>com.apple.mail.mailbox-object</string>
+						<string>com.apple.mail.account-object</string>
+					</array>
+				</dict>
+				<key>AMActionVersion</key>
+				<string>2.0.2</string>
+				<key>AMApplication</key>
+				<array>
+					<string>Mail</string>
+				</array>
+				<key>AMParameterProperties</key>
+				<dict>
+					<key>itemType</key>
+					<dict/>
+				</dict>
+				<key>AMProvides</key>
+				<dict>
+					<key>Container</key>
+					<string>List</string>
+					<key>Types</key>
+					<array>
+						<string>com.apple.mail.message-object</string>
+						<string>com.apple.mail.mailbox-object</string>
+						<string>com.apple.mail.account-object</string>
+					</array>
+				</dict>
+				<key>AMRequiredResources</key>
+				<array/>
+				<key>AMSelectedInputType</key>
+				<string>com.apple.mail.message-object</string>
+				<key>AMSelectedOutputType</key>
+				<string>com.apple.mail.message-object</string>
+				<key>ActionBundlePath</key>
+				<string>/System/Library/Automator/Get Selected Mail Items 2.action</string>
+				<key>ActionName</key>
+				<string>Ausgewählte E-Mails abfragen</string>
+				<key>ActionParameters</key>
+				<dict>
+					<key>itemType</key>
+					<string>com.apple.mail.message-object</string>
+				</dict>
+				<key>BundleIdentifier</key>
+				<string>com.apple.Automator.Get_Selected_Mail_Items_2</string>
+				<key>CFBundleVersion</key>
+				<string>2.0.2</string>
+				<key>CanShowSelectedItemsWhenRun</key>
+				<false/>
+				<key>CanShowWhenRun</key>
+				<true/>
+				<key>Category</key>
+				<array>
+					<string>AMCategoryMail</string>
+				</array>
+				<key>Class Name</key>
+				<string>Get_Selected_Mail_Items_2</string>
+				<key>InputUUID</key>
+				<string>DB50213A-D20E-4F38-95DA-962987B4B263</string>
+				<key>Keywords</key>
+				<array/>
+				<key>OutputUUID</key>
+				<string>9BCB77FD-F1FF-4701-9A3E-D4CD14B99675</string>
+				<key>UUID</key>
+				<string>1CB253D3-38AF-421F-96CE-2C8016E29C05</string>
+				<key>UnlocalizedApplications</key>
+				<array>
+					<string>Mail</string>
+				</array>
+				<key>arguments</key>
+				<dict>
+					<key>0</key>
+					<dict>
+						<key>default value</key>
+						<string>com.apple.mail.message-object</string>
+						<key>name</key>
+						<string>itemType</string>
+						<key>required</key>
+						<string>0</string>
+						<key>type</key>
+						<string>0</string>
+						<key>uuid</key>
+						<string>0</string>
+					</dict>
+				</dict>
+				<key>isViewVisible</key>
+				<true/>
+				<key>location</key>
+				<string>529.000000:353.000000</string>
+				<key>nibPath</key>
+				<string>/System/Library/Automator/Get Selected Mail Items 2.action/Contents/Resources/Base.lproj/main.nib</string>
+			</dict>
+			<key>isViewVisible</key>
+			<true/>
+		</dict>
+		<dict>
+			<key>action</key>
+			<dict>
+				<key>AMAccepts</key>
+				<dict>
+					<key>Container</key>
+					<string>List</string>
+					<key>Optional</key>
+					<true/>
+					<key>Types</key>
+					<array>
 						<string>com.apple.applescript.object</string>
 					</array>
 				</dict>
@@ -51,7 +156,7 @@
 				<key>ActionParameters</key>
 				<dict>
 					<key>source</key>
-					<string>on findHeader()	tell application "Mail"		set theSelection to selection		set theMessage to item 1 of theSelection		set the_id to id of theMessage		set subject_text to (subject of theMessage)		set subject_content to content of theMessage as rich text		return all headers of theMessage			end tellend findHeaderon stringBetween(str, head, tail)	-- ljr (http://applescript.bratis-lover.net/library/string/)	local str, head, tail	try		if str does not contain head then return ""		if str does not contain tail then return ""		set str to item 2 of my explode(head, str)		set str to item 1 of my explode(tail, str)		return str	on error eMsg number eNum		error "Can't stringBetween: " &amp; eMsg number eNum	end tryend stringBetweenon explode(delimiter, input)	local delimiter, input, ASTID	set ASTID to AppleScript's text item delimiters		set AppleScript's text item delimiters to delimiter	set input to text items of input	set AppleScript's text item delimiters to ASTID	return input --&gt; listend explodeon run {input, parameters}	set all_Headers to findHeader()	set mail_id to stringBetween(all_Headers, "Message-Id: &lt;", "&gt;Accept-Language")	display notification mail_id	return mail_idend run</string>
+					<string>on run {input, parameters}	tell application "Mail"		repeat with selectedMail in input			return message id of selectedMail		end repeat	end tellend run</string>
 				</dict>
 				<key>BundleIdentifier</key>
 				<string>com.apple.Automator.RunScript</string>
@@ -68,15 +173,15 @@
 				<key>Class Name</key>
 				<string>RunScriptAction</string>
 				<key>InputUUID</key>
-				<string>54CBAC63-D24D-41A8-851F-C3E5733CED00</string>
+				<string>3A5D8415-2E79-444F-BF08-A4805D596320</string>
 				<key>Keywords</key>
 				<array>
 					<string>Ausführen</string>
 				</array>
 				<key>OutputUUID</key>
-				<string>75446A68-B004-4BDC-88A3-590294A0EA67</string>
+				<string>45C73534-24AD-4A58-9B72-D27731224EC3</string>
 				<key>UUID</key>
-				<string>94D066A2-7C62-41B3-8A19-3DC257BF7622</string>
+				<string>60EC86D0-BDE5-4E91-BD60-C8257E1E9875</string>
 				<key>UnlocalizedApplications</key>
 				<array>
 					<string>Automator</string>
@@ -105,7 +210,7 @@ end run</string>
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
-				<string>529.000000:248.000000</string>
+				<string>529.000000:599.000000</string>
 				<key>nibPath</key>
 				<string>/System/Library/Automator/Run AppleScript.action/Contents/Resources/Base.lproj/main.nib</string>
 			</dict>
@@ -169,7 +274,7 @@ python3 /Users/afuerstenau/Projects/EmailHelper/demo_complete.py /Users/afuerste
 					<key>inputMethod</key>
 					<integer>1</integer>
 					<key>shell</key>
-					<string>/bin/zsh</string>
+					<string>/bin/sh</string>
 					<key>source</key>
 					<string></string>
 				</dict>
@@ -188,7 +293,7 @@ python3 /Users/afuerstenau/Projects/EmailHelper/demo_complete.py /Users/afuerste
 				<key>Class Name</key>
 				<string>RunShellScriptAction</string>
 				<key>InputUUID</key>
-				<string>7768D204-DF5A-46BB-8CA3-E35389C07FA1</string>
+				<string>48CE84FF-22DF-4303-9CE1-6592F9229C1E</string>
 				<key>Keywords</key>
 				<array>
 					<string>Shell</string>
@@ -198,9 +303,9 @@ python3 /Users/afuerstenau/Projects/EmailHelper/demo_complete.py /Users/afuerste
 					<string>Unix</string>
 				</array>
 				<key>OutputUUID</key>
-				<string>774B9AFF-978C-4374-A394-C9051E8E1307</string>
+				<string>9E0F38C4-3D88-436F-8CB4-E54FAD9ED714</string>
 				<key>UUID</key>
-				<string>BD70E188-3280-4155-B69B-3027A9B844F9</string>
+				<string>2C1128BE-96D2-41BD-B72B-F5729B5B44FF</string>
 				<key>UnlocalizedApplications</key>
 				<array>
 					<string>Automator</string>
@@ -276,7 +381,7 @@ python3 /Users/afuerstenau/Projects/EmailHelper/demo_complete.py /Users/afuerste
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
-				<string>529.000000:431.000000</string>
+				<string>529.000000:782.000000</string>
 				<key>nibPath</key>
 				<string>/System/Library/Automator/Run Shell Script.action/Contents/Resources/German.lproj/main.nib</string>
 			</dict>
@@ -286,18 +391,35 @@ python3 /Users/afuerstenau/Projects/EmailHelper/demo_complete.py /Users/afuerste
 	</array>
 	<key>connectors</key>
 	<dict>
-		<key>FC1A0512-E19E-418E-B7A9-49D09B59ADE3</key>
+		<key>00DE3AC0-FD66-44A3-AAB2-0BFB24E844B6</key>
 		<dict>
 			<key>from</key>
-			<string>94D066A2-7C62-41B3-8A19-3DC257BF7622 - 94D066A2-7C62-41B3-8A19-3DC257BF7622</string>
+			<string>1CB253D3-38AF-421F-96CE-2C8016E29C05 - 1CB253D3-38AF-421F-96CE-2C8016E29C05</string>
 			<key>to</key>
-			<string>BD70E188-3280-4155-B69B-3027A9B844F9 - BD70E188-3280-4155-B69B-3027A9B844F9</string>
+			<string>60EC86D0-BDE5-4E91-BD60-C8257E1E9875 - 60EC86D0-BDE5-4E91-BD60-C8257E1E9875</string>
+		</dict>
+		<key>2DFCAD5E-078D-4890-AB54-A01D8DE438EA</key>
+		<dict>
+			<key>from</key>
+			<string>60EC86D0-BDE5-4E91-BD60-C8257E1E9875 - 60EC86D0-BDE5-4E91-BD60-C8257E1E9875</string>
+			<key>to</key>
+			<string>2C1128BE-96D2-41BD-B72B-F5729B5B44FF - 2C1128BE-96D2-41BD-B72B-F5729B5B44FF</string>
 		</dict>
 	</dict>
 	<key>workflowMetaData</key>
 	<dict>
+		<key>serviceApplicationBundleID</key>
+		<string></string>
+		<key>serviceApplicationPath</key>
+		<string></string>
+		<key>serviceInputTypeIdentifier</key>
+		<string>com.apple.Automator.nothing</string>
+		<key>serviceOutputTypeIdentifier</key>
+		<string>com.apple.Automator.nothing</string>
+		<key>serviceProcessesInput</key>
+		<integer>0</integer>
 		<key>workflowTypeIdentifier</key>
-		<string>com.apple.Automator.workflow</string>
+		<string>com.apple.Automator.servicesMenu</string>
 	</dict>
 </dict>
 </plist>
